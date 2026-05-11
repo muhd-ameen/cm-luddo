@@ -20,7 +20,7 @@ export const HowToModal = () => {
             exit={{ y: 20, opacity: 0 }}
             className="w-full max-w-xl border border-white/20 bg-slate-900/85 p-6 text-slate-100 shadow-glass"
           >
-            <h2 className="font-display text-2xl">How Find Next CM Works</h2>
+            <h2 className="font-display text-2xl">How Find Next Kerala CM Works</h2>
             <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-200">
               <li>Pick your candidate. The bot plays the other.</li>
               <li>Roll 6 to enter the track from base.</li>

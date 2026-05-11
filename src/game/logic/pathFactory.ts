@@ -1,5 +1,5 @@
 import satheeshanImage from "../../assets/satheeshan.png";
-import venugopalImage from "../../assets/venugopal.jpg";
+import venugopalImage from "../../assets/kc-image.png";
 import type { BoardConfig, CellCoord, Character } from "./types";
 
 const BOARD_SIZE = 9;

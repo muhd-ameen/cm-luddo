@@ -1,7 +1,9 @@
 import { CharacterSelect } from "./components/CharacterSelect";
-import { GameHUD } from "./components/GameHUD";
+import { DiceDock } from "./components/DiceDock";
 import { HeaderMenu } from "./components/HeaderMenu";
 import { HowToModal } from "./components/HowToModal";
+import { OpponentBar } from "./components/OpponentBar";
+import { PlayerBar } from "./components/PlayerBar";
 import { VictoryModal } from "./components/VictoryModal";
 import { PhaserGame } from "./game/PhaserGame";
 import { useGameBus } from "./hooks/useGameBus";
@@ -16,32 +18,30 @@ function App() {
   return (
     <div className="min-h-screen bg-black text-slate-100">
       <main
-        className="mx-auto w-full max-w-7xl px-3 pt-3 md:px-4 md:pt-6"
+        className="mx-auto flex w-full max-w-lg flex-col gap-3 px-3 pt-3 md:pt-6"
         style={{
           paddingBottom: isPlaying
-            ? "calc(11rem + env(safe-area-inset-bottom))"
+            ? "calc(8.5rem + env(safe-area-inset-bottom))"
             : "calc(2rem + env(safe-area-inset-bottom))"
         }}
       >
-        <header className="border border-white/20 bg-white/5 p-3 md:p-5">
-          <div className="flex items-center justify-between gap-3">
-            <h1 className="font-display text-2xl md:text-4xl">Find Next CM</h1>
-            <HeaderMenu />
-          </div>
+        <header className="flex items-center justify-between gap-3 border border-white/20 bg-white/5 p-3 md:p-4">
+          <h1 className="font-display text-2xl md:text-3xl">Find Next Kerala CM</h1>
+          <HeaderMenu />
         </header>
 
-        <section className="mt-3 grid gap-3 md:mt-4 md:gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
-          <div className="border border-white/20 bg-white/5 p-2 md:p-3">
-            <div className="aspect-square w-full overflow-hidden">
-              <PhaserGame />
-            </div>
-          </div>
+        {isPlaying && <OpponentBar />}
 
-          <div className="flex flex-col gap-3 md:gap-4">
-            {phase === "setup" ? <CharacterSelect /> : <GameHUD />}
+        <div className="border border-white/20 bg-white/5 p-2 md:p-3">
+          <div className="aspect-square w-full overflow-hidden">
+            <PhaserGame />
           </div>
-        </section>
+        </div>
+
+        {isPlaying ? <PlayerBar /> : <CharacterSelect />}
       </main>
+
+      {isPlaying && <DiceDock />}
 
       <HowToModal />
       <VictoryModal />

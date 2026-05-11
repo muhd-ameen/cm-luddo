@@ -86,8 +86,9 @@ export class PoliticalLudoScene extends Phaser.Scene {
     if (this.textures.exists(WINBOX_TEXTURE_KEY)) return;
     try {
       const image = await this.loadHtmlImage(winboxImage);
+      const squared = this.centerCropToSquare(image);
       if (!this.textures.exists(WINBOX_TEXTURE_KEY)) {
-        this.textures.addImage(WINBOX_TEXTURE_KEY, image);
+        this.textures.addImage(WINBOX_TEXTURE_KEY, squared);
       }
     } catch (error) {
       console.error("Failed to load winbox texture:", error);
@@ -141,8 +142,9 @@ export class PoliticalLudoScene extends Phaser.Scene {
 
         try {
           const image = await this.loadHtmlImage(char.image);
+          const squared = this.centerCropToSquare(image);
           if (!this.textures.exists(key)) {
-            this.textures.addImage(key, image);
+            this.textures.addImage(key, squared);
           }
         } catch (error) {
           console.error(`Failed to load texture for ${item.id}:`, error);
@@ -158,6 +160,24 @@ export class PoliticalLudoScene extends Phaser.Scene {
       image.onerror = () => reject(new Error(`Image failed to load: ${src}`));
       image.src = src;
     });
+  }
+
+  private centerCropToSquare(image: HTMLImageElement): HTMLCanvasElement | HTMLImageElement {
+    const { naturalWidth: w, naturalHeight: h } = image;
+    if (w === h || w === 0 || h === 0) return image;
+
+    const size = Math.min(w, h);
+    const sx = Math.floor((w - size) / 2);
+    const sy = Math.floor((h - size) / 2);
+
+    const canvas = document.createElement("canvas");
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return image;
+
+    ctx.drawImage(image, sx, sy, size, size, 0, 0, size, size);
+    return canvas;
   }
 
   private createOrResetTokens(payload: StartMatchPayload) {
