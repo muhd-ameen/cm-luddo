@@ -27,8 +27,13 @@ export const GameEvents = {
   RestartMatch: "game:restart-match",
   RollRequest: "game:roll-request",
   UiState: "scene:ui-state",
-  Win: "scene:win"
+  Win: "scene:win",
+  Ready: "scene:ready"
 } as const;
+
+export const emitSceneReady = () => {
+  gameBus.dispatchEvent(new Event(GameEvents.Ready));
+};
 
 export const emitStartMatch = (payload: StartMatchPayload) => {
   gameBus.dispatchEvent(new CustomEvent(GameEvents.StartMatch, { detail: payload }));

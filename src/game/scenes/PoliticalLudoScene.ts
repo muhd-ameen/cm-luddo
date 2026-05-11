@@ -6,6 +6,7 @@ import type { MatchState, PlayerColor } from "../logic/types";
 import { coordToWorld, drawBoard, makeBoardLayout, WINBOX_TEXTURE_KEY, type BoardLayout } from "../board/boardPainter";
 import { createToken } from "../tokens/tokenFactory";
 import {
+  emitSceneReady,
   emitUiState,
   emitWin,
   GameEvents,
@@ -80,6 +81,7 @@ export class PoliticalLudoScene extends Phaser.Scene {
 
     await this.loadBoardTextures();
     drawBoard(this, boardConfig, this.layout);
+    emitSceneReady();
   }
 
   private async loadBoardTextures() {
