@@ -58,10 +58,10 @@ export const DiceDock = () => {
 
   return (
     <div
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-white/15 bg-black/95 backdrop-blur"
+      className="fixed inset-x-0 bottom-0 z-30 border-t border-white/15 bg-black/95 backdrop-blur lg:static lg:inset-auto lg:border lg:border-white/20 lg:bg-white/5 lg:backdrop-blur-none"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
-      <div className="mx-auto flex w-full max-w-lg items-center gap-3 px-4 py-3 md:py-4">
+      <div className="mx-auto flex w-full max-w-lg items-center gap-3 px-4 py-3 md:py-4 lg:max-w-none lg:px-4">
         <motion.button
           type="button"
           whileTap={{ scale: 0.92, rotate: -8 }}
