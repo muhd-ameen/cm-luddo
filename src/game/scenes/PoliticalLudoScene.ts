@@ -88,7 +88,7 @@ export class PoliticalLudoScene extends Phaser.Scene {
       const image = await this.loadHtmlImage(winboxImage);
       const squared = this.centerCropToSquare(image);
       if (!this.textures.exists(WINBOX_TEXTURE_KEY)) {
-        this.textures.addImage(WINBOX_TEXTURE_KEY, squared);
+        this.addTextureFromSource(WINBOX_TEXTURE_KEY, squared);
       }
     } catch (error) {
       console.error("Failed to load winbox texture:", error);
@@ -144,7 +144,7 @@ export class PoliticalLudoScene extends Phaser.Scene {
           const image = await this.loadHtmlImage(char.image);
           const squared = this.centerCropToSquare(image);
           if (!this.textures.exists(key)) {
-            this.textures.addImage(key, squared);
+            this.addTextureFromSource(key, squared);
           }
         } catch (error) {
           console.error(`Failed to load texture for ${item.id}:`, error);
@@ -160,6 +160,17 @@ export class PoliticalLudoScene extends Phaser.Scene {
       image.onerror = () => reject(new Error(`Image failed to load: ${src}`));
       image.src = src;
     });
+  }
+
+  private addTextureFromSource(
+    key: string,
+    source: HTMLCanvasElement | HTMLImageElement
+  ) {
+    if (source instanceof HTMLCanvasElement) {
+      this.textures.addCanvas(key, source);
+    } else {
+      this.textures.addImage(key, source);
+    }
   }
 
   private centerCropToSquare(image: HTMLImageElement): HTMLCanvasElement | HTMLImageElement {
