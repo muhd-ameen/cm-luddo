@@ -33,7 +33,7 @@ export const OpponentBar = () => {
       <img
         src={botCharacter.image}
         alt={botCharacter.name}
-        className="h-12 w-12 shrink-0 object-cover"
+        className="h-10 w-10 shrink-0 object-cover md:h-12 md:w-12"
         onError={(event) => {
           event.currentTarget.src = buildFallbackAvatar(botCharacter.name, botCharacter.accent);
         }}
@@ -42,14 +42,18 @@ export const OpponentBar = () => {
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-1.5">
           <span className={`inline-block h-1.5 w-1.5 ${accentDot}`} aria-hidden />
-          <p className="text-[10px] font-bold uppercase tracking-wider text-slate-300">Bot · {botFirstName}</p>
+          <p className="truncate text-[10px] font-bold uppercase tracking-wider text-slate-300">
+            Bot · {botFirstName}
+          </p>
         </div>
-        <h3 className="font-display text-sm leading-tight text-white">{botCharacter.name}</h3>
+        <h3 className="truncate font-display text-sm leading-tight text-white">
+          {botCharacter.name}
+        </h3>
         <p className="mt-0.5 text-[11px] text-slate-300">Captures: {captures}</p>
       </div>
 
       {isBotTurn && (
-        <span className="border border-campaign-blue/55 bg-campaign-blue/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-sky-100">
+        <span className="hidden border border-campaign-blue/55 bg-campaign-blue/15 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-sky-100 lg:inline-block">
           {ui?.botThinking ? "Thinking…" : "Their turn"}
         </span>
       )}

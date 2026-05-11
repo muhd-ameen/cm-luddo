@@ -34,18 +34,14 @@ function App() {
         </header>
 
         {/*
+          Mobile order (single column):
+            header → Board → [PlayerBar | OpponentBar] side-by-side → fixed DiceDock
           Desktop column placement:
             row 2 col 1 → Board (spans rows 2-4)
             row 2 col 2 → OpponentBar
             row 3 col 2 → PlayerBar / CharacterSelect
             row 4 col 2 → DiceDock (inline)
         */}
-        {isPlaying && (
-          <div className="lg:col-start-2 lg:row-start-2">
-            <OpponentBar />
-          </div>
-        )}
-
         <div className="border border-white/20 bg-white/5 p-2 md:p-3 lg:col-start-1 lg:row-start-2 lg:row-span-3 lg:self-start">
           <div className="aspect-square w-full overflow-hidden">
             <PhaserGame />
@@ -53,8 +49,13 @@ function App() {
         </div>
 
         {isPlaying ? (
-          <div className="lg:col-start-2 lg:row-start-3">
-            <PlayerBar />
+          <div className="grid grid-cols-2 items-stretch gap-3 lg:contents">
+            <div className="lg:col-start-2 lg:row-start-3">
+              <PlayerBar />
+            </div>
+            <div className="lg:col-start-2 lg:row-start-2">
+              <OpponentBar />
+            </div>
           </div>
         ) : (
           <div className="lg:col-start-2 lg:row-start-2 lg:row-span-3 lg:self-start">
